@@ -7,6 +7,7 @@ const Header = () => {
       <div className="logo">
         <img src="src\assets\marvel-header.png"></img>
       </div>
+
       <div className="menu">
         <p>
           <a href="/">Heróis</a>
