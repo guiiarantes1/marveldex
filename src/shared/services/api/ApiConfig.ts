@@ -5,4 +5,4 @@ export const Api = () => {
 };
 
 const api =
-  "https://gateway.marvel.com/v1/public/comics?ts=1714180616185&apikey=26e39c89d9c09e8e9873d0a1a69c4781&hash=95a977a97a254fda38931954913756f7";
+  "https://gateway.marvel.com/v1/public/characters?ts=1714180616185&apikey=26e39c89d9c09e8e9873d0a1a69c4781&hash=95a977a97a254fda38931954913756f7";
