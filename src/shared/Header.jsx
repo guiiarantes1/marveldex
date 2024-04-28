@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <div className="header">
       <div className="logo">
-        <Link to={`/`} ><img src="src\assets\marvel-header.png"></img></Link>
+        <Link to={`/`} ><img src="/src/assets/marvel-header.png"></img></Link>
       </div>
       <div className="menu">
         <NavBar/>
