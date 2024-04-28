@@ -1,24 +1,54 @@
 import "./CardHero.css";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import React from "react";
+import { Heart } from "@phosphor-icons/react";
+import { Api } from "../shared/services/api/ApiConfig";
 
 const CardHero = () => {
+  const [chars, setChars] = useState([]);
+  const getChars = async () => {
+    try {
+      const response = await axios.get(
+        "https://gateway.marvel.com/v1/public/characters?ts=1714180616185&apikey=26e39c89d9c09e8e9873d0a1a69c4781&hash=95a977a97a254fda38931954913756f7"
+      );
+      const data = response.data.data.results;
+
+      setChars(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getChars();
+  }, []);
+
   return (
     <div className="card-container">
-      <div className="card">
-        <div className="front">
-          <img
-            className="card-img-top"
-            src="https://images.unsplash.com/photo-1635805737707-575885ab0820?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c3BpZGVybWFufGVufDB8fDB8fHww"
-            alt="Card image cap"
-          />
-          <div className="card-body">
-            <p className="card-text">Spider-Man</p>
+      {chars.map((char) => (
+        <div className="card">
+          <div className="front">
+            <img
+              className="card-img-top"
+              src={char.thumbnail.path + "." + char.thumbnail.extension}
+              alt="Card image cap"
+            />
+            <div className="card-body">
+              <p className="card-text">{char.name}</p>
+            </div>
+          </div>
+          <div className="back">
+            <div className="descricao">
+              <h3>DESCRIÇÃO</h3>
+              <p>{char.description}</p>
+            </div>
+            <div className="favorite">
+              <Heart size={32} onClick={() => handleFavoriteClick(char)} />
+            </div>
           </div>
         </div>
-        <div className="back">
-          <p>Dark side of the moon</p>
-        </div>
-      </div>
+      ))}
     </div>
   );
 };

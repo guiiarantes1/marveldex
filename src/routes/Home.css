@@ -1,6 +1,13 @@
-  .body {
-    padding: 15px 25px;
-    height: 90%;
-    background-color: #564d4d;      
-  }
+.body {
+  padding: 15px 25px;
+  max-height: 90vh;
+  background-color: #564d4d;
+  display: flex !important;
+  flex-direction: column;
   
+  overflow-y: hidden;
+
+  /* background-image: url("https://i.redd.it/ehjgk76y2kv41.jpg");
+  background-size: 100vw;
+  background-repeat: no-repeat;; */
+}
