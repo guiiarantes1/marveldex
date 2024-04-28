@@ -1,20 +1,16 @@
 import React from "react";
 import "./Header.css";
+import NavBar from "../components/NavBar";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
     <div className="header">
       <div className="logo">
-        <img src="src\assets\marvel-header.png"></img>
+        <Link to={`/`} ><img src="src\assets\marvel-header.png"></img></Link>
       </div>
-
       <div className="menu">
-        <p>
-          <a href="/">Heróis</a>
-        </p>
-        <p>
-          <a href="/favorites">Favoritos</a>
-        </p>
+        <NavBar/>
       </div>
       <nav className="navbar navbar-light">
         <form className="form-inline">

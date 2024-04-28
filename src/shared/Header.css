@@ -11,21 +11,12 @@
       }
     }
 
-    .menu{
+    /* .menu{
       display: flex;   
       align-items: center; 
       width: 33%;
       justify-content: center;
-      p{
-        margin: 0;
-      }
-      a{
-        text-decoration: none !important;
-        color: #ffffff;
-        font-size: 25px;
-        margin: 0 15px;
-      }
-    }
+      } */
     .navbar {
       display: flex;
       justify-content: right;
