@@ -3,6 +3,7 @@ import { Heart } from "@phosphor-icons/react";
 import axios from "axios";
 import Spinner from "../shared/Spinner";
 import { useState, useEffect } from "react";
+import "../routes/Favorites.css";
 
 const Favorites = () => {
   const [listaFavoritos, setListaFavoritos] = useState([]);
@@ -35,7 +36,7 @@ const Favorites = () => {
   console.log(listaFavoritos);
 
   return (
-    <div className="card-container">
+    <div className="card-container-fav">
       {listaFavoritos.map((favorito) => (
         <div className="card">
           <div className="front">
