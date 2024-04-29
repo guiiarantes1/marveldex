@@ -5,13 +5,18 @@
     margin: 0;
     padding: 0;
     max-width: none;
+    background-image: url("https://rare-gallery.com/uploads/posts/554538-marvel-heroes.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    
   }
 
   .container::before {
   content: "";
   background-color: rgba(0, 0, 0, 0.5); 
   position: absolute;
-  top: 8%;
+  top: 80px;
   left: 0;
   right: 0;
   bottom: 0;

@@ -5,6 +5,7 @@
     flex-direction: row;
     justify-content: space-between;
     height: 8vh;
+    min-height: 80px !important;
     .logo{
       width: 33%;
       img {
