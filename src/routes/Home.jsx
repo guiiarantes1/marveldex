@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import CardHero from "../components/CardHero";
+import Header from  "../shared/Header";
 import { Link } from "react-router-dom";
 import "../routes/Home.css";
 import axios from "axios";
@@ -27,7 +28,7 @@ const Home = () => {
   // }, []);
 
   return (
-    <div className="body">
+    <div className="main">
       <CardHero />     
       <Pagination /> 
     </div>

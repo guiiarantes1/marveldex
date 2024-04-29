@@ -1,10 +1,11 @@
-.body {
+.main {
   padding: 15px 25px;
-  max-height: 90vh;
   background-color: #564d4d;
   display: flex !important;
   flex-direction: column;
-  
+  min-height: fit-content !important;
+  height: 92vh !important;
+  justify-content: space-between;
   overflow-y: hidden;
 
   /* background-image: url("https://i.redd.it/ehjgk76y2kv41.jpg");

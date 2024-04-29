@@ -2,18 +2,25 @@ import "./CardHero.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import React from "react";
-import { Heart } from "@phosphor-icons/react";
-import { Api } from "../shared/services/api/ApiConfig";
+import Spinner from "../shared/Spinner";
 
 const CardHero = () => {
   const [chars, setChars] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [favoritos, setFavoritos] = useState([]);
+
+  const recuperarFavoritos = () => {
+    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    setFavoritos(favorites);
+  };
+
   const getChars = async () => {
     try {
       const response = await axios.get(
         "https://gateway.marvel.com/v1/public/characters?ts=1714180616185&apikey=26e39c89d9c09e8e9873d0a1a69c4781&hash=95a977a97a254fda38931954913756f7"
       );
       const data = response.data.data.results;
-
+      setLoading(true);
       setChars(data);
     } catch (error) {
       console.log(error);
@@ -22,10 +29,29 @@ const CardHero = () => {
 
   useEffect(() => {
     getChars();
+    recuperarFavoritos();
   }, []);
+
+  const handleFavoriteClick = (char) => {
+    let favorites = [...favoritos];
+
+    const alreadyFavorite = favorites.some(
+      (favorite) => favorite.id === char.id
+    );
+
+    if (alreadyFavorite) {
+      favorites = favorites.filter((favorite) => favorite.id !== char.id);
+    } else {
+      favorites.push(char);
+    }
+
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+    setFavoritos(favorites);
+  };
 
   return (
     <div className="card-container">
+      {loading ? chars.length > 0 : <Spinner />}
       {chars.map((char) => (
         <div className="card">
           <div className="front">
@@ -44,7 +70,24 @@ const CardHero = () => {
               <p>{char.description}</p>
             </div>
             <div className="favorite">
-              <Heart size={32} onClick={() => handleFavoriteClick(char)} />
+              <i
+                class="bi bi-heart"
+                onClick={() => handleFavoriteClick(char)}
+                style={{
+                  display: favoritos.some((f) => f.id === char.id)
+                    ? "none"
+                    : "flex",
+                }}
+              ></i>
+              <i
+                class="bi bi-heart-fill"
+                onClick={() => handleFavoriteClick(char)}
+                style={{
+                  display: favoritos.some((f) => f.id === char.id)
+                    ? "flex"
+                    : "none",
+                }}
+              ></i>
             </div>
           </div>
         </div>
