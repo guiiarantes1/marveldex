@@ -5,6 +5,7 @@
   perspective: 1000;
   position: relative;
   width: 100%;
+  max-width: fit-content !important;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -12,8 +13,13 @@
   overflow-y: scroll;
   min-height: 80vh !important;
   max-height: 80vh !important;
-  overflow-x: hidden;;
-  }
+  overflow-x: hidden;
+  /* background-color: #564d4d56; */
+  border-radius: 15px;
+  -webkit-box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.75);
+}
 .card {
   width: 220px;
   height: 300px;
@@ -109,7 +115,6 @@
   }
   .favorite {
     max-height: 10%;
-    
   }
 }
 .card:hover .front {
@@ -130,8 +135,8 @@
   width: 220%;
 } */
 
-.bi{
-color: red;
-font-size: 25px;
-cursor: pointer;
+.bi {
+  color: red;
+  font-size: 25px;
+  cursor: pointer;
 }
