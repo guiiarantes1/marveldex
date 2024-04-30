@@ -1,0 +1,17 @@
+.navbar {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    .form-inline {
+      display: flex;
+      .form-control {
+        margin: 0 10px;
+        width: 28vw;
+      }
+      .btn {
+        background-color: #ed1a23;
+        color: #ffffff;
+        border: none;
+      }
+    }
+  }

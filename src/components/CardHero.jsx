@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import React from "react";
 import Spinner from "../shared/Spinner";
+import BarraPesquisa from "./BarraPesquisa";
 
 const CardHero = () => {
   const [chars, setChars] = useState([]);
@@ -50,49 +51,54 @@ const CardHero = () => {
   };
 
   return (
-    <div className="card-container">
-      {loading ? chars.length > 0 : <Spinner />}
-      {chars.map((char) => (
-        <div className="card">
-          <div className="front">
-            <img
-              className="card-img-top"
-              src={char.thumbnail.path + "." + char.thumbnail.extension}
-              alt="Card image cap"
-            />
-            <div className="card-body">
-              <p className="card-text">{char.name}</p>
+    <>
+      <div className="pesquisar">
+        <BarraPesquisa />
+      </div>
+      <div className="card-container">
+        {loading ? chars.length > 0 : <Spinner />}
+        {chars.map((char) => (
+          <div className="card">
+            <div className="front">
+              <img
+                className="card-img-top"
+                src={char.thumbnail.path + "." + char.thumbnail.extension}
+                alt="Card image cap"
+              />
+              <div className="card-body">
+                <p className="card-text">{char.name}</p>
+              </div>
+            </div>
+            <div className="back">
+              <div className="descricao">
+                <h3>DESCRIÇÃO</h3>
+                <p>{char.description}</p>
+              </div>
+              <div className="favorite">
+                <i
+                  class="bi bi-heart"
+                  onClick={() => handleFavoriteClick(char)}
+                  style={{
+                    display: favoritos.some((f) => f.id === char.id)
+                      ? "none"
+                      : "flex",
+                  }}
+                ></i>
+                <i
+                  class="bi bi-heart-fill"
+                  onClick={() => handleFavoriteClick(char)}
+                  style={{
+                    display: favoritos.some((f) => f.id === char.id)
+                      ? "flex"
+                      : "none",
+                  }}
+                ></i>
+              </div>
             </div>
           </div>
-          <div className="back">
-            <div className="descricao">
-              <h3>DESCRIÇÃO</h3>
-              <p>{char.description}</p>
-            </div>
-            <div className="favorite">
-              <i
-                class="bi bi-heart"
-                onClick={() => handleFavoriteClick(char)}
-                style={{
-                  display: favoritos.some((f) => f.id === char.id)
-                    ? "none"
-                    : "flex",
-                }}
-              ></i>
-              <i
-                class="bi bi-heart-fill"
-                onClick={() => handleFavoriteClick(char)}
-                style={{
-                  display: favoritos.some((f) => f.id === char.id)
-                    ? "flex"
-                    : "none",
-                }}
-              ></i>
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </>
   );
 };
 

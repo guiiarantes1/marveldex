@@ -13,12 +13,12 @@
       }
     }
 
-    /* .menu{
+     .menu{
       display: flex;   
       align-items: center; 
       width: 33%;
       justify-content: center;
-      } */
+      } 
     .navbar {
       display: flex;
       justify-content: right;
