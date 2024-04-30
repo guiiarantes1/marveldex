@@ -58,7 +58,6 @@ const CardHero = () => {
         `${apiBase}&nameStartsWith=${searchValue}`
       );
       const data = response.data.data.results;
-    
       setChars(data);
       setLoading(true);
     } catch (error) {
