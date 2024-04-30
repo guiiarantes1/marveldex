@@ -1,64 +1,60 @@
-import React from 'react'
+import React, { useState, useEffect, Suspense } from "react";
 import "../routes/Search.css";
 import axios from "axios";
-import { useState, useEffect } from "react";
 import BarraPesquisa from "../components/BarraPesquisa";
+import Spinner from "../shared/Spinner";
 
 const Search = () => {
   const apiBase =
-  "https://gateway.marvel.com/v1/public/characters?ts=1714180616185&apikey=26e39c89d9c09e8e9873d0a1a69c4781&hash=95a977a97a254fda38931954913756f7";
+    "https://gateway.marvel.com/v1/public/characters?ts=1714180616185&apikey=26e39c89d9c09e8e9873d0a1a69c4781&hash=95a977a97a254fda38931954913756f7";
 
-    const [chars, setChars] = useState([]);
-    const [favoritos, setFavoritos] = useState([]);
+  const [chars, setChars] = useState([]);
+  const [favoritos, setFavoritos] = useState([]);
 
-    const recuperarFavoritos = () => {
-      const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-      setFavoritos(favorites);
-    };
+  const recuperarFavoritos = () => {
+    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    setFavoritos(favorites);
+  };
 
+  useEffect(() => {
     const getChars = async () => {
-        try {
-          const response = await axios.get(
-            apiBase + "&nameStartsWith=spider"
-          );
-          const data = response.data.data.results;      
-          setChars(data);
-        } catch (error) {
-          console.log(error);
-        }
-      };
-    
-      useEffect(() => {
-        getChars();
+      try {
+        const response = await axios.get(apiBase + "&limit=100");
+        const data = response.data.data.results;
+        setChars(data);
         recuperarFavoritos();
-      }, []);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getChars();
+  }, []);
 
-      const handleFavoriteClick = (char) => {
-        let favorites = [...favoritos];
-    
-        const alreadyFavorite = favorites.some(
-          (favorite) => favorite.id === char.id
-        );
-    
-        if (alreadyFavorite) {
-          favorites = favorites.filter((favorite) => favorite.id !== char.id);
-        } else {
-          favorites.push(char);
-        }
-    
-        localStorage.setItem("favorites", JSON.stringify(favorites));
-        setFavoritos(favorites);
-      };
+  const handleFavoriteClick = (char) => {
+    let favorites = [...favoritos];
 
- 
-  return (  
-      <>
-        <div className="pesquisar">
-          <BarraPesquisa />
-        </div>
+    const alreadyFavorite = favorites.some(
+      (favorite) => favorite.id === char.id
+    );
+
+    if (alreadyFavorite) {
+      favorites = favorites.filter((favorite) => favorite.id !== char.id);
+    } else {
+      favorites.push(char);
+    }
+
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+    setFavoritos(favorites);
+  };
+
+  return (
+    <>
+      <div className="pesquisar">
+        <BarraPesquisa />
+      </div>
         <div className="card-container">
           {chars.map((char) => (
-            <div className="card">
+            <div className="card" key={char.id}>
               <div className="front">
                 <img
                   className="card-img-top"
@@ -76,7 +72,7 @@ const Search = () => {
                 </div>
                 <div className="favorite">
                   <i
-                    class="bi bi-heart"
+                    className="bi bi-heart"
                     onClick={() => handleFavoriteClick(char)}
                     style={{
                       display: favoritos.some((f) => f.id === char.id)
@@ -85,7 +81,7 @@ const Search = () => {
                     }}
                   ></i>
                   <i
-                    class="bi bi-heart-fill"
+                    className="bi bi-heart-fill"
                     onClick={() => handleFavoriteClick(char)}
                     style={{
                       display: favoritos.some((f) => f.id === char.id)
@@ -98,8 +94,8 @@ const Search = () => {
             </div>
           ))}
         </div>
-      </>
-    );
-}
+    </>
+  );
+};
 
-export default Search
+export default Search;
