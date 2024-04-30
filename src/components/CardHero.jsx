@@ -4,11 +4,15 @@ import axios from "axios";
 import React from "react";
 import Spinner from "../shared/Spinner";
 import BarraPesquisa from "./BarraPesquisa";
+import Favorites from "../routes/Favorites";
 
 const CardHero = () => {
   const [chars, setChars] = useState([]);
+  console.log(chars);
   const [loading, setLoading] = useState(false);
   const [favoritos, setFavoritos] = useState([]);
+  const apiBase =
+    "https://gateway.marvel.com/v1/public/characters?ts=1714180616185&apikey=26e39c89d9c09e8e9873d0a1a69c4781&hash=95a977a97a254fda38931954913756f7";
 
   const recuperarFavoritos = () => {
     const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
@@ -17,12 +21,10 @@ const CardHero = () => {
 
   const getChars = async () => {
     try {
-      const response = await axios.get(
-        "https://gateway.marvel.com/v1/public/characters?ts=1714180616185&apikey=26e39c89d9c09e8e9873d0a1a69c4781&hash=95a977a97a254fda38931954913756f7"
-      );
+      const response = await axios.get(apiBase);
       const data = response.data.data.results;
-      setLoading(true);
       setChars(data);
+      setLoading(true);
     } catch (error) {
       console.log(error);
     }
@@ -50,15 +52,29 @@ const CardHero = () => {
     setFavoritos(favorites);
   };
 
+  const handleSearch = async (searchValue) => {
+    try {
+      const response = await axios.get(
+        `${apiBase}&nameStartsWith=${searchValue}`
+      );
+      const data = response.data.data.results;
+    
+      setChars(data);
+      setLoading(true);
+    } catch (error) {
+      getChars();
+    }
+  };
+
   return (
     <>
       <div className="pesquisar">
-        <BarraPesquisa />
+        <BarraPesquisa onSearch={handleSearch} />
       </div>
       <div className="card-container">
-        {loading ? chars.length > 0 : <Spinner />}
+        {!loading && <Spinner />}
         {chars.map((char) => (
-          <div className="card">
+          <div className="card" key={char.id}>
             <div className="front">
               <img
                 className="card-img-top"
@@ -76,7 +92,7 @@ const CardHero = () => {
               </div>
               <div className="favorite">
                 <i
-                  class="bi bi-heart"
+                  className="bi bi-heart"
                   onClick={() => handleFavoriteClick(char)}
                   style={{
                     display: favoritos.some((f) => f.id === char.id)
@@ -85,7 +101,7 @@ const CardHero = () => {
                   }}
                 ></i>
                 <i
-                  class="bi bi-heart-fill"
+                  className="bi bi-heart-fill"
                   onClick={() => handleFavoriteClick(char)}
                   style={{
                     display: favoritos.some((f) => f.id === char.id)

@@ -8,14 +8,10 @@ import "../routes/Favorites.css";
 const Favorites = () => {
   const [listaFavoritos, setListaFavoritos] = useState([]);
 
-  useEffect(() => {
-    const recuperarFavoritos = () => {
-      const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-      setListaFavoritos(favorites);
-    };
-
-    recuperarFavoritos();
-  }, []);
+  const recuperarFavoritos = () => {
+    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    setListaFavoritos(favorites);
+  };
 
   const handleFavoriteClick = (char) => {
     let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
@@ -33,12 +29,14 @@ const Favorites = () => {
     localStorage.setItem("favorites", JSON.stringify(favorites));
     setListaFavoritos(favorites);
   };
-  console.log(listaFavoritos);
 
+  useEffect(() => {
+    recuperarFavoritos();
+  }, []);
   return (
     <div className="card-container-fav">
       {listaFavoritos.map((favorito) => (
-        <div className="card">
+        <div className="card" key={favorito.id}>
           <div className="front">
             <img
               className="card-img-top"
@@ -56,7 +54,7 @@ const Favorites = () => {
             </div>
             <div className="favorite">
               <i
-                class="bi bi-heart"
+                className="bi bi-heart"
                 onClick={() => handleFavoriteClick(favorito)}
                 style={{
                   display: listaFavoritos.some((f) => f.id === favorito.id)
@@ -65,7 +63,7 @@ const Favorites = () => {
                 }}
               ></i>
               <i
-                class="bi bi-heart-fill"
+                className="bi bi-heart-fill"
                 onClick={() => handleFavoriteClick(favorito)}
                 style={{
                   display: listaFavoritos.some((f) => f.id === favorito.id)
