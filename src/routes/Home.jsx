@@ -1,7 +1,5 @@
 import React, { useState, useEffect, Suspense } from "react";
 import CardHero from "../components/CardHero";
-import Header from "../shared/Header";
-import { Link } from "react-router-dom";
 import "../routes/Home.css";
 import axios from "axios";
 import Pagination from "../components/Pagination";

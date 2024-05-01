@@ -4,7 +4,7 @@ import "./Spinner.css"
 const Spinner = () => {  
   return (
     <div className='spinner'>
-                <img className='shield' src="https://github.com/lucascb/snake-cljs/assets/81725311/bd00c578-a0dd-4bcb-a365-d5046564838f"/>  
+                <img className='shield' src={process.env.PUBLIC_URL + '/public/escudo-spinner.png'} alt='Loading Image'/>  
     </div>
   )
 }
