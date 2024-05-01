@@ -5,7 +5,7 @@ import "./ErrorSearch.css"
 const ErrorSearch = () => {
   return (
     <div className='erroSearch'>
-      <img src="/public/images/erro-hero.gif" alt="imagem de erro"></img>
+      <img src="/images/erro-hero.gif" alt="imagem de erro"></img>
     </div>
   )
 }
