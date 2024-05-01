@@ -1,4 +1,4 @@
-import { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import CardHero from "../components/CardHero";
 import Header from "../shared/Header";
 import { Link } from "react-router-dom";
@@ -10,8 +10,8 @@ import BarraPesquisa from "../components/BarraPesquisa";
 
 const Home = () => {
   const [chars, setChars] = useState([]);
-  console.log(chars);
   const [favoritos, setFavoritos] = useState([]);
+  const [loading, setLoading] = useState(true); 
   const apiBase =
     "https://gateway.marvel.com/v1/public/characters?ts=1714180616185&apikey=26e39c89d9c09e8e9873d0a1a69c4781&hash=95a977a97a254fda38931954913756f7";
 
@@ -25,11 +25,12 @@ const Home = () => {
       const response = await axios.get(apiBase);
       const data = response.data.data.results;
       setChars(data);
+      setLoading(false); 
     } catch (error) {
       console.log(error);
+      setLoading(false); 
     }
   };
-
 
   const handleFavoriteClick = (char) => {
     let favorites = [...favoritos];
@@ -49,11 +50,13 @@ const Home = () => {
   };
 
   const handleSearch = async (searchValue) => {
+    setLoading(true);
     try {
       const response = await axios.get(
         `${apiBase}&nameStartsWith=${searchValue}`
       );
       const data = response.data.data.results;
+      setLoading(false);
       setChars(data);
     } catch (error) {
       getChars();
@@ -65,18 +68,20 @@ const Home = () => {
     recuperarFavoritos();
   }, []);
 
-
   return (
     <div className="main">
       <BarraPesquisa onSearch={handleSearch} />
-      <Suspense fallback={<Spinner/>}>
-      <CardHero
-        chars={chars}
-        favoritos={favoritos}
-        handleFavoriteClick={handleFavoriteClick}
-      />
-      </Suspense>
-     
+      {loading ? ( // Renderiza o Spinner se o estado de loading for verdadeiro
+        <Spinner />
+      ) : (
+        <Suspense fallback={<Spinner />}>
+          <CardHero
+            chars={chars}
+            favoritos={favoritos}
+            handleFavoriteClick={handleFavoriteClick}
+          />
+        </Suspense>
+      )}
       <Pagination />
     </div>
   );
