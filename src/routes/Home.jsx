@@ -5,11 +5,13 @@ import axios from "axios";
 import Pagination from "../components/Pagination";
 import Spinner from "../shared/Spinner";
 import BarraPesquisa from "../components/BarraPesquisa";
+import ErrorSearch from "../shared/ErrorSearch"
 
 const Home = () => {
   const [chars, setChars] = useState([]);
   const [favoritos, setFavoritos] = useState([]);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
+  const [emptySearch, setEmptySearch] = useState(true);
   const apiBase =
     "https://gateway.marvel.com/v1/public/characters?ts=1714180616185&apikey=26e39c89d9c09e8e9873d0a1a69c4781&hash=95a977a97a254fda38931954913756f7";
 
@@ -23,10 +25,10 @@ const Home = () => {
       const response = await axios.get(apiBase);
       const data = response.data.data.results;
       setChars(data);
-      setLoading(false); 
+      setLoading(false);
     } catch (error) {
       console.log(error);
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
@@ -56,8 +58,10 @@ const Home = () => {
       const data = response.data.data.results;
       setLoading(false);
       setChars(data);
+      setEmptySearch(false);
     } catch (error) {
       getChars();
+      setEmptySearch(true);
     }
   };
 
@@ -69,17 +73,18 @@ const Home = () => {
   return (
     <div className="main">
       <BarraPesquisa onSearch={handleSearch} />
-      {loading ? ( // Renderiza o Spinner se o estado de loading for verdadeiro
+      {!emptySearch ? (
+        <ErrorSearch/>
+      ) : loading ? (
         <Spinner />
       ) : (
-        <Suspense fallback={<Spinner />}>
-          <CardHero
-            chars={chars}
-            favoritos={favoritos}
-            handleFavoriteClick={handleFavoriteClick}
-          />
-        </Suspense>
+        <CardHero
+          chars={chars}
+          favoritos={favoritos}
+          handleFavoriteClick={handleFavoriteClick}
+        />
       )}
+
       <Pagination />
     </div>
   );

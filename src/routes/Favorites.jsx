@@ -3,10 +3,13 @@ import { useState, useEffect } from "react";
 import "../routes/Favorites.css";
 import CardHero from "../components/CardHero";
 import BarraPesquisa from "../components/BarraPesquisa";
+import ErrorSearch from "../shared/ErrorSearch";
+import Pagination from "../components/Pagination";
 
 const Favorites = () => {
   const [listaFavoritos, setListaFavoritos] = useState([]);
   const [favoritosFiltrados, setfavoritosFiltrados] = useState([]);
+  const [emptySearch, setEmptySearch] = useState(true);
 
   const recuperarFavoritos = () => {
     const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
@@ -37,6 +40,7 @@ const Favorites = () => {
       favorite.name.toLowerCase().includes(searchValue.toLowerCase())
     );
     setfavoritosFiltrados(filtered);
+    setEmptySearch(false);
   };
 
   useEffect(() => {
@@ -45,11 +49,17 @@ const Favorites = () => {
   return (
     <div className="main">
       <BarraPesquisa onSearch={handleSearch} />
-      <CardHero
-        chars={favoritosFiltrados}
-        favoritos={listaFavoritos}
-        handleFavoriteClick={handleFavoriteClick}
-      />
+      {!emptySearch ? (
+        <ErrorSearch />
+      ) : (
+        <CardHero
+          chars={favoritosFiltrados}
+          favoritos={listaFavoritos}
+          handleFavoriteClick={handleFavoriteClick}
+        />
+      )}
+
+      <Pagination />
     </div>
   );
 };
