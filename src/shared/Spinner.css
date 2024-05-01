@@ -1,7 +1,6 @@
 .spinner {
   max-width: 100vw !important;
   max-height: 60vh !important;
-  margin-top: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
