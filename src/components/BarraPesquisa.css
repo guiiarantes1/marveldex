@@ -18,3 +18,8 @@
       }
     }
   }
+
+  .form-control:focus{
+    border-color: #ed1a23;
+    box-shadow: 0 0 0 0.1rem rgba(219, 5, 5, 0.336);
+  }
