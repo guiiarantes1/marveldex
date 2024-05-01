@@ -4,6 +4,8 @@
     display: flex;
     justify-content: center;
     img {
+      max-width: 1366px;
+
       width: 100%;
         z-index: 1;        
         border-radius: 10px;
