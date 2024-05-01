@@ -1,20 +1,20 @@
-  .container{
-    width: 100vw !important;
+  .app-container{
+    width: 100vw;
     height: 100vh;
     background-color: #564d4d;
     margin: 0;
     padding: 0;
-    max-width: none;
     background-image: url("https://rare-gallery.com/uploads/posts/554538-marvel-heroes.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    overflow: none;
     
   }
 
-  .container::before {
+  .app-container::before {
   content: "";
-  background-color: rgba(0, 0, 0, 0.7); 
+  background-color: rgba(0, 0, 0, 0.5); 
   position: absolute;
   top: 79px;
   left: 0;

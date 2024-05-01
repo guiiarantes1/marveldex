@@ -1,7 +1,6 @@
 import React from "react";
 import "./Header.css";
 import NavBar from "../components/NavBar";
-import { NavLink } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -12,7 +11,7 @@ const Header = () => {
       <div className="menu">
         <NavBar/>
       </div>
-      <nav className="navbar navbar-light">
+      <nav className="espacamento">
        
       </nav>
     </div>

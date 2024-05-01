@@ -1,15 +1,12 @@
 * {
   font-family: "Blinker", sans-serif;
-  margin: 0;
-  padding: 0;
-  overflow: none !important;
-  overflow-x:none !important;
-  overflow-y:none !important;
 }
 
 body {
 }
 
+#root{
+}
 
 *::-webkit-scrollbar {
       height: 10px;

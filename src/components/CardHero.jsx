@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "../components/CardHero.css"
 
 const CardHero = ({ chars, favoritos, handleFavoriteClick }) => {
   return (
@@ -6,11 +7,14 @@ const CardHero = ({ chars, favoritos, handleFavoriteClick }) => {
       {chars.map((char) => (
         <div className="card" key={char.id}>
           <div className="front">
+            <div className="card-img">
             <img
-              className="card-img-top"
+              className="char-img"
               src={`${char.thumbnail.path}.${char.thumbnail.extension}`}
               alt="Card image cap"
             />
+            </div>
+     
             <div className="card-body">
               <p className="card-text">{char.name}</p>
             </div>

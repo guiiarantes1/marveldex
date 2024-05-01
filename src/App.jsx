@@ -5,7 +5,7 @@ import Header from "./shared/Header";
 
 function App() {
   return <div>
-    <div className="container">
+    <div className="app-container">
       <Header/>
       <Outlet/>
     </div>

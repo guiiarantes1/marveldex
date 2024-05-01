@@ -19,20 +19,22 @@
       width: 33%;
       justify-content: center;
       } 
-    .navbar {
+    .espacamento {
       display: flex;
       justify-content: right;
-      width: 33%;
-      .form-inline {
-        display: flex;
-        .form-control {
-          margin: 0 10px;
-        }
-        .btn {
-          background-color: #ed1a23;
-          color: #ffffff;
-          border: none;
-        }
-      }
+      width: 33% !important;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .logo{
+      width: 50% !important;
+      
+    }
+    .menu{
+      width: 50% !important;
+    }
+    .espacamento {
+      display: none !important;
     }
   }
