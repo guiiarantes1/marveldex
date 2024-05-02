@@ -40,7 +40,7 @@ const Favorites = () => {
       favorite.name.toLowerCase().includes(searchValue.toLowerCase())
     );
     setfavoritosFiltrados(filtered);
-    setEmptySearch(false);
+    setEmptySearch(true);
   };
 
   useEffect(() => {

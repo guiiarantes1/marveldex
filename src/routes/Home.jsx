@@ -58,10 +58,10 @@ const Home = () => {
       const data = response.data.data.results;
       setLoading(false);
       setChars(data);
-      setEmptySearch(false);
+      setEmptySearch(true);
     } catch (error) {
       getChars();
-      setEmptySearch(true);
+      setEmptySearch(false);
     }
   };
 
