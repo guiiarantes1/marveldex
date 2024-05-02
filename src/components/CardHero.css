@@ -171,18 +171,32 @@
 
 @media (max-width: 540px) {
   .card {
-    width: 60%;
-    height: 20rem;
+    width: 42%;
+    height: 15rem;
+    .card-img {
+      width: 100% !important;
+    }
+    p{
+      font-size: 12px;
+    }
+  }
+ 
+}
+
+@media (max-width: 450px) {
+  .card {
+    width: 42%;
+    height: 12rem;
     .card-img {
       width: 100% !important;
     }
   }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 400px) {
   .card {
-    width: 60%;
-    height: 16rem;
+    width: 9rem;
+    height: 12rem;
     .card-img {
       width: 100% !important;
     }
