@@ -24,6 +24,9 @@
       justify-content: right;
       width: 33% !important;
     }
+    .dropdown{
+      display: none;
+    }
   }
 
   @media (max-width: 600px) {
@@ -36,5 +39,70 @@
     }
     .espacamento {
       display: none !important;
+    }
+  }
+
+  @media (max-width: 450px) {
+    .menu {
+      display: none !important;
+    }
+
+    .dropdown{
+      display: flex !important;
+      align-items: center;
+      button{
+        max-height: fit-content !important;
+        background:none !important;
+        border: none;
+        padding: 0;
+        margin: 0;
+        i{
+          font-size: 35px;
+        }
+      }
+      .offcanvas{
+        background-color: #151515;
+        color: white;
+        width: 40%;
+      }
+      .offcanvas-header{        
+        color: white;
+        width: 100%;
+        display: flex;
+        justify-content: end;
+        button{
+          margin: 0 15px 0 0; 
+          box-shadow: none !important;
+        }
+
+      }
+
+      .offcanvas-body{  
+        width: 100%;
+        display: flex;
+        justify-content: end;
+        ul{
+          margin-top: 10px;
+          list-style: none;
+          li{
+            margin: 10px 15px;
+            font-size: 20px;
+            text-align: end;
+            a{
+              color: #ffffff;
+              text-decoration: none;
+              &:hover{
+                cursor: pointer;
+                transform: scale(1.15);
+                text-decoration: underline;
+              }
+            }
+
+           
+          }
+      
+        }
+   
+      }
     }
   }
