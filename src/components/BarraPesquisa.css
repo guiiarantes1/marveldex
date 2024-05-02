@@ -10,16 +10,23 @@
         margin: 0 10px;
         min-width: 200px;
         max-width: 25vw;
+        height: 45px;
       }
       .btn {
-        background-color: #ed1a23;
+        background-color: #e62429;
         color: #ffffff;
         border: none;
+        border-radius: 2px;
+        clip-path: polygon(15% 0, 100% 0, 100% 70%, 85% 100%, 0 100%, 0 30%);
+
+
+
+
       }
     }
   }
 
   .form-control:focus{
-    border-color: #ed1a23;
+    border-color: #e62429;
     box-shadow: 0 0 0 0.1rem rgba(219, 5, 5, 0.336);
   }
