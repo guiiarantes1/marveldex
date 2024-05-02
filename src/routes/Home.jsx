@@ -1,16 +1,17 @@
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect } from "react";
 import CardHero from "../components/CardHero";
 import "../routes/Home.css";
 import axios from "axios";
 import Pagination from "../components/Pagination";
 import Spinner from "../shared/Spinner";
 import BarraPesquisa from "../components/BarraPesquisa";
-import ErrorSearch from "../shared/ErrorSearch"
+import ErrorSearch from "../shared/ErrorSearch";
 
 const Home = () => {
   const [chars, setChars] = useState([]);
   const [favoritos, setFavoritos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
   const [emptySearch, setEmptySearch] = useState(true);
   const apiBase =
     "https://gateway.marvel.com/v1/public/characters?ts=1714180616185&apikey=26e39c89d9c09e8e9873d0a1a69c4781&hash=95a977a97a254fda38931954913756f7";
@@ -22,7 +23,9 @@ const Home = () => {
 
   const getChars = async () => {
     try {
-      const response = await axios.get(apiBase);
+      const response = await axios.get(
+        `${apiBase}&offset=${(currentPage - 1) * 20}`
+      );
       const data = response.data.data.results;
       setChars(data);
       setLoading(false);
@@ -68,13 +71,17 @@ const Home = () => {
   useEffect(() => {
     getChars();
     recuperarFavoritos();
-  }, []);
+  }, [currentPage]);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <div className="main">
       <BarraPesquisa onSearch={handleSearch} />
       {!emptySearch ? (
-        <ErrorSearch/>
+        <ErrorSearch />
       ) : loading ? (
         <Spinner />
       ) : (
@@ -85,7 +92,11 @@ const Home = () => {
         />
       )}
 
-      <Pagination />
+      <Pagination
+        totalPages={100}
+        currentPage={currentPage}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 };

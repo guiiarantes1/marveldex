@@ -10,6 +10,22 @@ const Favorites = () => {
   const [listaFavoritos, setListaFavoritos] = useState([]);
   const [favoritosFiltrados, setfavoritosFiltrados] = useState([]);
   const [emptySearch, setEmptySearch] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  
+  const favoritesPerPage = 10;
+  const indexOfLastFavorite = currentPage * favoritesPerPage;
+  const indexOfFirstFavorite = indexOfLastFavorite - favoritesPerPage;
+  const currentFavorites = favoritosFiltrados.slice(
+    indexOfFirstFavorite,
+    indexOfLastFavorite
+  );
+
+  const totalPages = Math.ceil(favoritosFiltrados.length / favoritesPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   const recuperarFavoritos = () => {
     const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
@@ -53,13 +69,17 @@ const Favorites = () => {
         <ErrorSearch />
       ) : (
         <CardHero
-          chars={favoritosFiltrados}
+          chars={currentFavorites}
           favoritos={listaFavoritos}
           handleFavoriteClick={handleFavoriteClick}
         />
       )}
 
-      <Pagination />
+      <Pagination
+        totalPages={totalPages}
+        currentPage={currentPage}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 };

@@ -1,51 +1,57 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import "./Pagination.css";
+import "../components/Pagination.css"
 
-const Pagination = () => {
-  const [chars, setChars] = useState([]);
-  const getChars = async () => {
-    try {
-      const response = await axios.get(
-        "https://gateway.marvel.com/v1/public/characters?ts=1714180616185&apikey=26e39c89d9c09e8e9873d0a1a69c4781&hash=95a977a97a254fda38931954913756f7"
-      );
-      const data = response.data.data.results;
-      setChars(data);
-    } catch (error) {
-      console.log(error);
+const Pagination = ({ totalPages, currentPage, onPageChange }) => {
+  const renderPageNumbers = () => {
+    const pageNumbers = [];
+    const maxPagesToShow = 5; 
+    const halfMaxPagesToShow = Math.floor(maxPagesToShow / 2);
+    let startPage = currentPage - halfMaxPagesToShow;
+    let endPage = currentPage + halfMaxPagesToShow;
+
+    if (startPage < 1) {
+      startPage = 1;
+      endPage = Math.min(totalPages, maxPagesToShow);
     }
-  };
+    if (endPage > totalPages) {
+      endPage = totalPages;
+      startPage = Math.max(1, totalPages - maxPagesToShow + 1);
+    }
 
-  useEffect(() => {
-    getChars();
-  }, []);
+    for (let i = startPage; i <= endPage; i++) {
+      pageNumbers.push(
+        <li
+          key={i}
+          className={`page-item ${currentPage === i ? "active" : ""}`}
+          onClick={() => onPageChange(i)}
+        >
+          <a className="page-link">{i}</a>
+        </li>
+      );
+    }
+
+    return pageNumbers;
+  };
 
   return (
     <div className="navConteiner">
       <nav aria-label="navPag">
-        <ul class="pagination justify-content-center">
-          <li class="page-item disabled">
-            <a class="page-link"><i class="bi bi-arrow-left"></i></a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">
-              1
+        <ul className="pagination">
+          <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+            <a
+              className="page-link"
+              onClick={() => onPageChange(currentPage - 1)}
+            >
+              <i className="bi bi-arrow-left"></i>
             </a>
           </li>
-          <li class="page-item">
-            <a class="page-link" href="#">
-              2
-            </a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">
-              3
-            </a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">
-              <i class="bi bi-arrow-right"></i>
+          {renderPageNumbers()}
+          <li className={`page-item ${currentPage === totalPages ? "disabled" : ""}`}>
+            <a
+              className="page-link"
+              onClick={() => onPageChange(currentPage + 1)}
+            >
+              <i className="bi bi-arrow-right"></i>
             </a>
           </li>
         </ul>
